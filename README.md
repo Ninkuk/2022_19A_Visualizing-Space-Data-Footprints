@@ -1,6 +1,6 @@
-# 19A: Visualizing Space Data Footprints (Copper Class - 2022)
+# NASA Psyche Capstone 19A: Visualizing Space Data Footprints (Copper Class - 2022)
 
-- [19A: Visualizing Space Data Footprints (Copper Class - 2022)](#19a-visualizing-space-data-footprints-copper-class---2022)
+- [NASA Psyche Capstone 19A: Visualizing Space Data Footprints (Copper Class - 2022)](#nasa-psyche-capstone-19a-visualizing-space-data-footprints-copper-class---2022)
   - [Project Description](#project-description)
   - [Team](#team)
   - [Installation](#installation)
