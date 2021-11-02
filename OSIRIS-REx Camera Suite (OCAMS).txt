@@ -1,0 +1,34 @@
+Description
+===========
+- The OSIRIS-REX Camera Suite (OCAMS) is a set of three cameras designed to image asteroid Bennu from different distances at different resolutions.
+    - PolyCam is a long-range camera designed to image the asteroid from a distances between 200—2 million km.
+    - MapCam provides high-resolution maps of the asteroid's surface
+    - SamCam documents the maneuvers and acquisition by the TAGSAM sampling system.
+- All cameras use identical detector arrays but have focal lengths separated by a factor of 5.
+- The detector is a 1024 x 1024 active pixel CCD array with 6.5 x 8.5 micron pixels.
+
+URL:
+https://arcnav.psi.edu/urn:nasa:pds:context:instrument:ocams.orex
+
+
+OCAM Data Description
+=====================
+
+This bundle collects all the operational data products produced by the OSIRIS-REx Camera Suite (OCAMS). OCAMS is a suite of scientific cameras used for the characterization of the surface of (101955) Bennu.
+
+URL: https://arcnav.psi.edu/urn:nasa:pds:orex.ocams
+
+
+Tools
+=====
+
+Small Bodies Image Browser - https://sbib.psi.edu/
+
+
+FAQ
+===
+
+- What is PDS4?
+    - https://pds.nasa.gov/datastandards/about/what.shtml
+    - https://pds.nasa.gov/datastandards/about/
+    - Planetary Data System V4
