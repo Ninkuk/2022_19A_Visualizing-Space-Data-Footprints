@@ -1,6 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
-from requests.api import get
+import os
 
 # SPICE Kernels Archived Data: https://naif.jpl.nasa.gov/naif/data_archived.html
 
@@ -20,6 +20,17 @@ kernel_file_extensions = {
 
 # This function asks the user to point to the kernel files on local machine
 def local_kernel_input():
+    return
+
+def download_kernels(links):
+    os.chdir('./kernels/')
+
+    for link in links:
+        req = requests.get(link)
+        fileName = link.split("/")[-1]
+        with open(fileName, 'wb') as f:
+            f.write(req.content)
+
     return
 
 
@@ -71,7 +82,7 @@ def get_kernels_from_links():
         else:
             links.append(userInput)
     
-    
+    download_kernels(links)
 
     return
 
