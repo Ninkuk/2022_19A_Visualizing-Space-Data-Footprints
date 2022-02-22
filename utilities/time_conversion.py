@@ -1,7 +1,32 @@
 import spiceypy
+import datetime
 
 # LSK - The leapseconds kernel is used in conversions between ephemeris time (ET/TDB) and Coordinated Universal Time (UTC)
 # SCLK - The spacecraft clock kernel is used in conversions between spacecraft clock time (SCLK) and ephemeris time (ET/TDB).
+
+
+# ISO -> UTC
+def convert_iso_to_utc(iso):
+    """
+    Convert an ISO8601 time to UTC
+
+    https://www.programiz.com/python-programming/datetime/strftime
+
+    :param iso: Input iso. given in the format %Y-%m-%dT%H:%M:%S.%fZ
+    """
+
+    dt = datetime.datetime.strptime(iso, "%Y-%m-%dT%H:%M:%S.%fZ")
+    timestamp = dt.timestamp()
+    utc = str(datetime.datetime.utcfromtimestamp(timestamp))
+
+    return utc
+
+
+# UTC -> ISO
+def utc_to_iso(utc):
+    # TODO: Implement this if needed
+    pass
+
 
 # ET -> UTC
 def convert_et_to_utc(et):
@@ -16,6 +41,7 @@ def convert_et_to_utc(et):
     """
 
     return spiceypy.et2utc(et)
+
 
 # UTC -> ET
 def convert_utc_to_et(utc_epoch):
@@ -32,6 +58,7 @@ def convert_utc_to_et(utc_epoch):
 
     return spiceypy.str2et(utc_epoch)
 
+
 # SCLK -> ET
 def convert_sclk_to_et(sclk, spacecraft_code):
     """
@@ -46,6 +73,7 @@ def convert_sclk_to_et(sclk, spacecraft_code):
 
     return spiceypy.scs2e(spacecraft_code, sclk)
 
+
 # ET -> SCLK
 def convert_et_to_sclk(et, spacecraft_clock_code):
     """
@@ -58,5 +86,5 @@ def convert_et_to_sclk(et, spacecraft_clock_code):
     :param et: Ephemeris time, specified as seconds past J2000.
     :return: An SCLK string.
     """
-    
+
     return spiceypy.sce2s(spacecraft_clock_code, et)
