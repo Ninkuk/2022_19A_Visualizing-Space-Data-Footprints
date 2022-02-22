@@ -1,19 +1,30 @@
 import spiceypy
 
+# Sample implementation of all kernels
+
 # PCK
 def get_target_radii():
+    """
+    uses PCK kernel and bodvrd function to get the radii of the asteroid
+    """
+
     radii = spiceypy.bodvrd('Bennu', 'RADII', 3)
     print(f"Bennu RADII: {radii}")
 
 
 # SPK
 def get_target_position(utc):
-    # utctim = input('Input UTC Time: ')
-    # print('Converting UTC Time: {:s}'.format(utctim))
-    et = spiceypy.str2et(utc)
-    # print('ET seconds past J2000: {:16.3f}'.format(et))
+    """
+    uses SPK kernel and spkpos function to get the position of spacecraft and asteroid in relation to each other
+    """
 
-    state = spiceypy.spkpos('Bennu', et, 'J2000', 'LT+S', 'OSIRIS-REx')
+    et = spiceypy.str2et(utc)
+
+    state = spiceypy.spkpos('Bennu', et, 'IAU_BENNU', 'LT+S', 'OSIRIS-REx')
     [x, y, z] = state[0]
 
     print(f"X: {x} km\nY: {y} km\nZ: {z} km")
+
+
+# CK
+# spiceypy.ckobj()
