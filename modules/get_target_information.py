@@ -1,4 +1,6 @@
 import spiceypy
+import utilities.time_conversion as time_conversion
+
 
 # Sample implementation of all kernels
 
@@ -18,7 +20,7 @@ def get_target_position(utc):
     uses SPK kernel and spkpos function to get the position of spacecraft and asteroid in relation to each other
     """
 
-    et = spiceypy.str2et(utc)
+    et = time_conversion.convert_utc_to_et(utc)
 
     state = spiceypy.spkpos('Bennu', et, 'IAU_BENNU', 'LT+S', 'OSIRIS-REx')
     [x, y, z] = state[0]
@@ -26,5 +28,25 @@ def get_target_position(utc):
     print(f"X: {x} km\nY: {y} km\nZ: {z} km")
 
 
-# CK
-# spiceypy.ckobj()
+# CK/FK
+def get_camera_attitude(utc):
+    """
+    uses FK and CK kernel
+    """
+
+    et = time_conversion.convert_utc_to_et(utc)
+
+    boresight = [ 0.0, 0.0, 1.0 ] # +Z axis is the camera boresight
+
+    """
+    Target: Bennu
+    Observer Epoch : et
+    Reference Frame: ORX_OCAMS_POLYCAM
+    Observing Body: OSIRIS-REx
+    """
+    state = spiceypy.spkpos('Bennu', et, 'ORX_OCAMS_POLYCAM', 'LT+S', 'OSIRIS-REx')
+    print(state)
+
+def get_image_vectors():
+    pass
+    # spiceypy.getfov()
