@@ -24,6 +24,12 @@ $ python -m pip install -r requirements.txt
 
 ## Usage
 
+To run the app with frontend,
+``` bash
+$ python frontend/app.py
+```
+This will create a localhost server on http://127.0.0.1:5000/ (or some other port)
+
 ## Credits
 
 ### SPICE
