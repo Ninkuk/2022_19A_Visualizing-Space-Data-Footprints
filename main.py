@@ -1,19 +1,23 @@
 import spiceypy
-from modules.SPICE.get_image_information import get_timeframe
-
-
-img_name = input("Please enter the image file name: ")
-
-[utc, data_time_frame] = get_timeframe(img_name, DEBUG = True)
-
+from modules.SPICE.get_image_information import get_camera_type, get_timeframe
 
 # arya's code -> list of 1000 vectors
-    # API call: boresight, boundary vectors
+## load MetaK with orx_ocams_v04.ti
+### spice.furnsh("/content/orx_ocams_v04.ti")
+## get boresight
+### spice.getfov(-64360, 4)
+## create vectors
+
+
+# Get the image file name
+img_name = input("Please enter the image file name: ")
+
+# Get image information
+[utc, data_time_frame] = get_timeframe(img_name, DEBUG=True)
+camera_type = get_camera_type(img_name, DEBUG=True)
 
 # ninad
-    # surface intercept
-
-# print(get_timeframe(img_name))
+# surface intercept
 
 # METAKR = 'convtm'
 # spiceypy.furnsh(MK.create_dynamic_meta_kernel(METAKR))
