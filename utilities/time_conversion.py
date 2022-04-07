@@ -5,16 +5,34 @@ import datetime
 # SCLK - The spacecraft clock kernel is used in conversions between spacecraft clock time (SCLK) and ephemeris time (ET/TDB).
 
 
+# create datetime object from iso time
+def get_datetime_from_iso(iso):
+    """Get a datetime object from ISO8601 time
+
+    Args:
+        iso (str): ISO string given in the format %Y-%m-%dT%H:%M:%S.%fZ
+
+    Returns:
+        datetime: python datetime object
+    """
+
+    # https://www.programiz.com/python-programming/datetime/strftime
+    return datetime.datetime.strptime(iso, "%Y-%m-%dT%H:%M:%S.%fZ")
+
+
 # ISO -> UTC
 def convert_iso_to_utc(iso):
+    """Convert an ISO8601 time to UTC
+
+    Arguments:
+        iso{str}: ISO string given in the format %Y-%m-%dT%H:%M:%S.%fZ
+
+    Returns:
+        str: returns the converted utc time string
     """
-    Convert an ISO8601 time to UTC
 
-    https://www.programiz.com/python-programming/datetime/strftime
-
-    :param iso: Input iso. given in the format %Y-%m-%dT%H:%M:%S.%fZ
-    """
-
+    # https://www.programiz.com/python-programming/datetime/strftime
+    # Parse the ISO time, create a timestamp and then convert to utc
     dt = datetime.datetime.strptime(iso, "%Y-%m-%dT%H:%M:%S.%fZ")
     timestamp = dt.timestamp()
     utc = str(datetime.datetime.utcfromtimestamp(timestamp))
