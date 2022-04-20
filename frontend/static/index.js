@@ -30,8 +30,14 @@ function submit_demo_images() {
  * https://stackoverflow.com/users/4170935/yairopro
 */
 async function upload_images(){
-    let files = await file_selector("image/*", true);
+    let files = await file_selector(".fits, .xml", true);
     contentElement.innerHTML = files.map(file => `<img src="${URL.createObjectURL(file)}" >`).join('');
+
+    //TODO This is where you can access the files being uploaded
+    files.map( file => {
+        console.log("file", file)
+        console.log("URL:", URL.createObjectURL(file))
+    });
 }
 
 // ---- function definition ----
