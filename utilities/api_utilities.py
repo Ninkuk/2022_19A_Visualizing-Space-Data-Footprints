@@ -4,13 +4,16 @@ import json
 def create_json_dict(
     calculation_type,
     times,
-    targetFrame,
     observer,
     id=30,
     target="BENNU",
-    directionVectorType="VECTOR_IN_INSTRUMENT_FOV",
+    targetFrame="IAU_BENNU",
+    directionVectorType="",
     directionInstrument="",
     stateRepresentation="LATITUDINAL",
+    directionVectorX=0,
+    directionVectorY=0,
+    directionVectorZ=0
 ):
 
     # Load the json template and parse it into a dict
@@ -27,6 +30,9 @@ def create_json_dict(
     template["directionVectorType"] = directionVectorType
     template["directionInstrument"] = directionInstrument
     template["stateRepresentation"] = stateRepresentation
+    template["directionVectorX"] = directionVectorX
+    template["directionVectorY"] = directionVectorY
+    template["directionVectorZ"] = directionVectorZ
 
     return template
 

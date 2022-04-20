@@ -32,3 +32,6 @@ FAQ
     - https://pds.nasa.gov/datastandards/about/what.shtml
     - https://pds.nasa.gov/datastandards/about/
     - Planetary Data System V4
+
+
+wget -m -nH --cut-dirs=5 -nv ftp://naif.jpl.nasa.gov/pub/naif/pds/pds4/orex/orex_spice/spice_kernels/ck/

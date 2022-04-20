@@ -1,20 +1,66 @@
+import sys
 import requests
+import json
+import time
+import webgeocalc
 
 # Read API documentation here: https://wgc2.jpl.nasa.gov:8443/webgeocalc/documents/api-info.html
-api_url = "https://wgc2.jpl.nasa.gov:8443/webgeocalc/api"
 
 
-def get(endpoint, headers):
-    pass
+def get_surface_intercepts(projection_vectors):
+    calc = webgeocalc.Calculation(
+            calculation_type="SURFACE_INTERCEPT_POINT",
+            kernels="OSIRIS-REx",
+            target="BENNU",
+            target_frame="IAU_BENNU",
+            shape_1="ELLIPSOID",
+            reference_frame="IAU_BENNU",
+            observer="ORX_OCAMS_MAPCAM",
+            direction_vector_type="VECTOR_IN_INSTRUMENT_FOV",
+            direction_instrument="ORX_OCAMS_MAPCAM",
+            direction_vector_x=projection_vectors[0][0],
+            direction_vector_y=projection_vectors[0][1],
+            direction_vector_z=projection_vectors[0][2],
+            aberration_correction='NONE',
+            times="2019-09-23T09:01:13.548Z",
+            state_representation="LATITUDINAL"
+        )
 
+    calc.submit()
+    sys.exit()
 
-def post(endpoint, headers, payload):
-    response = requests.post(api_url + endpoint, json=payload)
-    if response.ok:
-        return response.json()
+    calculation_queue = []
 
-    return response.raise_for_status()
+    for vector in projection_vectors:
+        calc = webgeocalc.Calculation(
+            calculation_type="SURFACE_INTERCEPT_POINT",
+            kernels="OSIRIS-REx",
+            target="BENNU",
+            target_frame="IAU_BENNU",
+            shape_1="ELLIPSOID",
+            reference_frame="IAU_BENNU",
+            observer="ORX_OCAMS_MAPCAM",
+            direction_vector_type="VECTOR_IN_INSTRUMENT_FOV",
+            direction_instrument="ORX_OCAMS_MAPCAM",
+            direction_vector_x=vector[0],
+            direction_vector_y=vector[1],
+            direction_vector_z=vector[2],
+            aberration_correction='NONE',
+            times="2019-09-23T09:01:13.548Z",
+            state_representation="LATITUDINAL"
+        )
 
+        calc.submit()
+        calculation_queue.append(calc.id)
+        time.sleep(1)
 
-def get_kernel_set_id(id):
-    pass
+    print(calculation_queue)
+    time.sleep(5)
+
+    for index in range(len(calculation_queue)):
+        if index % 10 == 0:
+            time.sleep(5)
+        calculation_id = calculation_queue[index]
+        r = requests.get(
+            f"https://wgc2.jpl.nasa.gov:8443/webgeocalc/api/calculation/{calculation_id}/results")
+        print(r.json())
