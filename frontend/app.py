@@ -15,7 +15,7 @@ def index():
     return render_template('index.html')
 
 @app.route('/submit_demo', methods=['GET', 'POST'])
-def hello():
+def demo():
     # POST request
     if request.method == 'POST':
         image_paths = request.get_json()
