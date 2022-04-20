@@ -2,6 +2,11 @@ let selected_image = [];
 let contentElement = document.getElementsByClassName("image-grid")[1];
 
 function submit_demo_images() {
+    if(selected_image.length == 0) {
+        alert("Please select an image")
+        return
+    }
+    
     fetch('/submit_demo', {
         headers: {
           'Content-Type': 'application/json'
@@ -55,11 +60,9 @@ function select_image(id, src) {
     if(selected_image.includes(src)) {
         document.getElementById(id).style.borderStyle = "none"
         selected_image = delete_value(selected_image, src)
-        console.log("src selected!");
     } else {
         document.getElementById(id).style.borderStyle = "solid"
         selected_image.push(src)       
-        console.log("selected_image", selected_image);
     }
 }
 
