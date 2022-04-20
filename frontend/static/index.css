@@ -41,13 +41,19 @@ body {
     row-gap: 20px;
 }
 
-.content img {
+
+.left-half img {
     width: 200px;
     height: 200px;
-    cursor: pointer;
     
+    cursor: pointer;
     border-style: none;
     border-width: 5px;
     border-color: #f9a000;
     border-radius: 10px;
+}
+
+.right-half img {
+    width: 100px;
+    height: 100px;
 }
