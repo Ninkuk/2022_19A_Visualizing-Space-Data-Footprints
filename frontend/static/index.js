@@ -19,6 +19,30 @@ function submit_demo_images() {
     }).then(function (response) { // At this point, Flask has received the data
         return response.text();
     }).then(function (file_content) {
+        file_name = "Psyche_Footprints_Outline_Uploaded.csv"
+        var myFile = new File([file_content], file_name, {type: "text/plain;charset=utf-8"});
+        saveAs(myFile);
+    });
+}
+
+function submit_uploaded_images(URL_paths) {
+    if(selected_image.length == 0) {
+        alert("Please select an image")
+        return
+    }
+    
+    fetch('/submit_uploads', {
+        headers: {
+          'Content-Type': 'application/json'
+        },
+    
+        method: 'POST',
+    
+        // This is the content we're sending to Python
+        body: JSON.stringify(URL_paths)
+    }).then(function (response) { // At this point, Flask has received the data
+        return response.text();
+    }).then(function (file_content) {
         file_name = "Psyche_Footprints_Demo.csv"
         var myFile = new File([file_content], file_name, {type: "text/plain;charset=utf-8"});
         saveAs(myFile);
@@ -33,11 +57,17 @@ async function upload_images(){
     let files = await file_selector(".fits, .xml", true);
     contentElement.innerHTML = files.map(file => `<img src="${URL.createObjectURL(file)}" >`).join('');
 
-    //TODO This is where you can access the files being uploaded
+    //This is where you can access the files being uploaded
+    URL_paths = []
     files.map( file => {
+        URL = URL.createObjectURL(file)
+        URL_paths.push(URL_paths)
+
         console.log("file", file)
-        console.log("URL:", URL.createObjectURL(file))
+        console.log("URL:", URL)
     });
+
+    submit_uploaded_images(URL_paths);
 }
 
 // ---- function definition ----

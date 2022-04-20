@@ -38,5 +38,29 @@ def demo():
 
         return CSV_file_content, 200
 
+@app.route('/submit_uploads', methods=['GET', 'POST'])
+def uploads():
+    # POST request
+    if request.method == 'POST':
+        file_paths = request.get_json()
+        
+        # Use this function to remove everything before 
+        print("file_paths", file_paths)
+
+        #!
+        #TODO READ Ninad
+        '''
+            So for now I'm just passing in the URL of the images uploaded.
+            For whatever reason, the URL starts with "blob:", and if removed, the browser wouldn't find the file.
+
+            I don't have .fits or .xml to test the output on, but you should have access to file paths at this stage
+
+            Anyways, when you're done with passing data to the backend and then creating the CSV, just follow
+            the instructions of the previous function's TODO comment. I explain there what to do
+        '''
+        CSV_file_content = "Lorem Ipsum"
+
+        return CSV_file_content, 200
+
 if __name__ == "__main__":
     app.run(debug=True)
