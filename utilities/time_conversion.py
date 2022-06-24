@@ -108,4 +108,4 @@ def convert_et_to_sclk(et, spacecraft_clock_code):
     return spiceypy.sce2s(spacecraft_clock_code, et)
 
 if __name__=="__main__":
-    print(convert_iso_to_utc("2019-10-27T03:00:28.518Z"))
+    print(convert_iso_to_utc("2019-10-26T21:01:54.620Z"))
