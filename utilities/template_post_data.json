@@ -1,0 +1,27 @@
+{
+    "kernels": [{
+        "type": "KERNEL_SET",
+        "id": 30
+    }],
+    "timeSystem": "UTC",
+    "timeFormat": "CALENDAR",
+    "times": [],
+    "timeStep": 0,
+    "timeStepUnits": "",
+    "calculationType": "",
+    "target": "",
+    "shape1": "DSK",
+    "targetFrame": "",
+    "observer": "",
+    "directionVectorType": "",
+    "directionInstrument": "",
+    "directionFrame": "",
+    "directionFrameAxis": "",
+    "directionVectorX": "",
+    "directionVectorY": "",
+    "directionVectorZ": "",
+    "directionVectorRA": "",
+    "directionVectorDec": "",
+    "aberrationCorrection": "NONE",
+    "stateRepresentation": ""
+}

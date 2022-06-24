@@ -2,6 +2,8 @@ import imp
 import os
 import re
 
+
+#  all possible kernels and their file types
 kernel_file_extensions = {
     "SPK": [".bsp", ".xsp"],
     "PCK": [".tpc", ".bpc", ".xpc"],
@@ -16,8 +18,13 @@ kernel_file_extensions = {
 }
 
 
-def create_dynamic_meta_kernel(meta_kernel_name):
-    meta_kernel_file = f"./kernels/{meta_kernel_name.replace('.tm', '')}.tm"
+def create_dynamic_meta_kernel(meta_kernel_name="convtm"):
+    """Creates a meta kernel from all the available files in /kernels/
+
+    Args:
+        meta_kernel_name (str, optional): Name of the meta kernel file. Defaults to "convtm".
+    """
+    meta_kernel_file = f"./kernels/{meta_kernel_name.replace('.tm', '')}.tm" # create the meta kernel file path
 
     kernels = os.listdir('./kernels/')
 
