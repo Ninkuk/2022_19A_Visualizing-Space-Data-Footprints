@@ -2,65 +2,60 @@ from flask import Flask, render_template, jsonify, request
 
 app = Flask(__name__)
 
-def filter_image_paths(image_paths):
-    filtered_paths = []
-    for path in image_paths:
-        index = path.find("/static")
-        filtered_paths.append(path[index:])
-    
-    return filtered_paths
 
+# Render index.html at website root
 @app.route('/')
 def index():
     return render_template('index.html')
 
-@app.route('/submit_demo', methods=['GET', 'POST'])
-def demo():
-    # POST request
-    if request.method == 'POST':
-        image_paths = request.get_json()
-        image_paths = filter_image_paths(image_paths) 
-        print("image_paths", image_paths)
 
-        #TODO YOUR CODE HERE Ninad
-        '''
-            image_paths is an array of the demo images selected. Since they're saved locally, it only contains
-            the local path. The path should look something like "/static/img/X.jpg"
-            
-            What you need to do is iterate through these images and pass them through your algorithm that finds
-            the interception points. Then create the CSV file from those interception points
+# This list specifies the image extensions allowed for user file input
+app.config["ALLOWED_IMAGE_EXTENSIONS"] = ["FITS", "XML"]
 
-            A problem is how do we save the CSV file generated on the frontend for the user. The solution
-            I came up with is that this function returns the contents of the CSV file as a string to the frontend,
-            of which I download the file there.
-        '''
-        CSV_file_content = "Lorem Ipsum"
 
-        return CSV_file_content, 200
+def allowed_image(filename):
+    """Validate filename based on allowed file extensions.
 
-@app.route('/submit_uploads', methods=['GET', 'POST'])
-def uploads():
-    # POST request
-    if request.method == 'POST':
-        file_paths = request.get_json()
-        
-        # Use this function to remove everything before 
-        print("file_paths", file_paths)
+    Args:
+        filename (str): file name like test.fits or text.xml
 
-        #!
-        #TODO READ Ninad
-        '''
-            So for now I'm just passing in the URL of the images uploaded.
-            For whatever reason, the URL starts with "blob:", and if removed, the browser wouldn't find the file.
+    Returns:
+        bool: Indicates whether the file name is valid or not.
+    """
 
-            I don't have .fits or .xml to test the output on, but you should have access to file paths at this stage
+    # binary files not allowed
+    if not '.' in filename:
+        return False
 
-            Anyways, when you're done with passing data to the backend and then creating the CSV, just follow
-            the instructions of the previous function's TODO comment. I explain there what to do
-        '''
-        CSV_file_content = "Lorem Ipsum"
+    # extract extension from name
+    file_ext = filename.split(".")[-1]
 
-        return CSV_file_content, 200
+    # check if extension belongs in list of allowed file extensions
+    if file_ext.upper() not in app.config["ALLOWED_IMAGE_EXTENSIONS"]:
+        return False
+
+    # return True if all validating checks pass
+    return True
+
+
+@app.route("/upload-image", methods=["GET", "POST"])
+def upload_image():
+    if request.method == "POST":
+        if request.files:
+            files = request.files.getlist("fileInput")
+
+            for file in files:
+                print(file)
+                if file.filename == "":
+                    print("Image must have a name")
+                    return redirect(request.url)
+
+                if not allowed_image(file.filename):
+                    print("Image must be a .FITS or .XML file")
+                    return request.url + "/bruh"
+
+        return request.url
+
 
 if __name__ == "__main__":
     app.run(debug=True)

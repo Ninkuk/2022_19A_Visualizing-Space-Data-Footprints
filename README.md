@@ -18,7 +18,7 @@
 ### Set up the environment
 
 ``` bash
-$ source env/bin/activate
+$ conda activate psyche-capstone
 $ python -m pip install -r requirements.txt
 ```
 
