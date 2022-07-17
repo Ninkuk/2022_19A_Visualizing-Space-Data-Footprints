@@ -1,8 +1,8 @@
 from flask import Flask, render_template, request
 from astropy.io import fits
 from modules.main import get_results
-# from main import xyz
 from utilities.validations import allowed_image
+from utilities.image_metadata import get_fits_image_metadata, get_xml_image_metadata
 
 app = Flask(__name__)
 
@@ -19,9 +19,11 @@ def upload_image():
 
     # check form request type
     if request.method == "POST":
-        
+        print("POST method found")
+
         # check if request contains file
         if request.files:
+            print("File(s) found in request")
 
             # get the files as a list
             files = request.files.getlist("fileInput")
@@ -42,11 +44,9 @@ def upload_image():
                     print("Image must be a .FITS or .XML file")
                     return "Image must be a .FITS or .XML file"
 
-                # parse fits file header and pass information to backend
-                if file.filename.lower().endswith(".fits"):
-                    # fits.getheader(files[0])["DATE"]
-
-                    get_results(file)
+                # pass file information to the backend
+                image_metadata = get_fits_image_metadata(fits.getheader(file)) if file.filename.endswith("fits") else get_xml_image_metadata(file)
+                get_results(image_metadata)
 
         return request.url
 

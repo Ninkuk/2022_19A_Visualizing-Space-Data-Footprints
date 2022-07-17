@@ -1,0 +1,15 @@
+{
+    "date": "",
+    "mission": "",
+    "hostname": "",
+    "instrument": "",
+    "target": "",
+    "mission_phase": "",
+    "date_obs": "",
+    "object": "",
+    "lat": "",
+    "lon": "",
+    "camera_id": 0,
+    "image_id": 0,
+    "instrument_naif_id": 0
+}

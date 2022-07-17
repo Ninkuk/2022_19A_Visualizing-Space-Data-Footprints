@@ -25,6 +25,5 @@
 # get_camera_attitude(utc)
 
 
-def get_results(file_name):
-
+def get_results(image_metadata):
     pass
