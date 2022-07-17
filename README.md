@@ -6,6 +6,7 @@
   - [Installation](#installation)
     - [Set up the environment](#set-up-the-environment)
   - [Usage](#usage)
+  - [How-to?](#how-to)
   - [Credits](#credits)
     - [SPICE](#spice)
     - [SpiceyPy](#spiceypy)
@@ -18,17 +19,32 @@
 ### Set up the environment
 
 ``` bash
-$ conda activate psyche-capstone
-$ python -m pip install -r requirements.txt
+$ conda create --name <env name> --file requirements.txt
+$ conda activate <env name>
 ```
 
 ## Usage
 
-To run the app with frontend,
+To run the app with GUI,
 ``` bash
-$ python frontend/app.py
+$ python app.py
 ```
 This will create a localhost server on http://127.0.0.1:5000/ (or some other port)
+
+To run the app with CLI,
+```bash
+$ python -m psyche [file name(s)]
+```
+
+## How-to?
+
+Update package dependencies?
+```
+$ conda install <package name>
+$ conda list --explicit > requirements.txt
+```
+Push this new requirements.txt to git
+Make sure to do `conda env update --name <env name> --file requirements.txt --prune` with every git pull.
 
 ## Credits
 
