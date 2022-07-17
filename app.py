@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request
 from astropy.io import fits
-from main import xyz
+from modules.main import get_results
+# from main import xyz
+from utilities.validations import allowed_image
 
 app = Flask(__name__)
 
@@ -9,35 +11,6 @@ app = Flask(__name__)
 @app.route('/')
 def index():
     return render_template('index.html')
-
-
-# This list specifies the image extensions allowed for user file input
-app.config["ALLOWED_IMAGE_EXTENSIONS"] = ["FITS", "XML"]
-
-
-def allowed_image(filename):
-    """Validate filename based on allowed file extensions.
-
-    Args:
-        filename (str): file name like test.fits or text.xml
-
-    Returns:
-        bool: Indicates whether the file name is valid or not.
-    """
-
-    # binary files not allowed
-    if not '.' in filename:
-        return False
-
-    # extract extension from name
-    file_ext = filename.split(".")[-1]
-
-    # check if extension belongs in list of allowed file extensions
-    if file_ext.upper() not in app.config["ALLOWED_IMAGE_EXTENSIONS"]:
-        return False
-
-    # return True if all validating checks pass
-    return True
 
 
 @app.route("/upload-image", methods=["GET", "POST"])
@@ -71,9 +44,9 @@ def upload_image():
 
                 # parse fits file header and pass information to backend
                 if file.filename.lower().endswith(".fits"):
-                    fits.getheader(files[0])["DATE"]
+                    # fits.getheader(files[0])["DATE"]
 
-                    xyz(file)
+                    get_results(file)
 
         return request.url
 
