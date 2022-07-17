@@ -27,7 +27,7 @@ $ conda activate <env name>
 
 To run the app with GUI,
 ``` bash
-$ python frontend/app.py
+$ python app.py
 ```
 This will create a localhost server on http://127.0.0.1:5000/ (or some other port)
 
@@ -44,7 +44,7 @@ $ conda install <package name>
 $ conda list --explicit > requirements.txt
 ```
 Push this new requirements.txt to git
-Make sure to do `conda env update --name myenv --file requirements.txt --prune` with every git pull.
+Make sure to do `conda env update --name <env name> --file requirements.txt --prune` with every git pull.
 
 ## Credits
 
