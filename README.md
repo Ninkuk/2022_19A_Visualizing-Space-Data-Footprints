@@ -42,9 +42,12 @@ Update package dependencies?
 ```
 $ conda install <package name>
 $ conda list --explicit > requirements.txt
+$ conda list  > requirements_simple-list.txt
 ```
-Push this new requirements.txt to git
+Push these new requirements files to git
 Make sure to do `conda env update --name <env name> --file requirements.txt --prune` with every git pull.
+
+requirements_simple-list.txt contains the human readable list of conda dependencies.
 
 ## Credits
 
