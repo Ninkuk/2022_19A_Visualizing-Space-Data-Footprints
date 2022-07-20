@@ -1,29 +1,38 @@
-# import spiceypy
-# from utilities.download_kernels import download_from_timeframe
-# from modules.get_image_information import get_timeframe
-# import utilities.meta_kernel as MK
-# from modules.get_target_information import get_camera_attitude, get_target_position, get_target_radii
-# from astropy.io import fits
-
-# import sys
-
-# # sys.exit()
-
-# img_name = input("Please enter the image file name: ")
-
-# [utc, data_time_frame] = get_timeframe(img_name)
-# # download_from_timeframe(data_time_frame)
-
-# METAKR = 'convtm'
-# spiceypy.furnsh(MK.create_dynamic_meta_kernel(METAKR))
-
-# print("\n\nMeta Kernel created...")
-
-# print("\n\n\n====== RESULT ======")
-# get_target_radii()
-# get_target_position(utc)
-# get_camera_attitude(utc)
+import spiceypy
+import os
+from modules.utilities.download_kernels import download_subset
 
 
-def get_results(image_metadata):
-    pass
+def get_results(image_metadata=""):
+
+    ##############################
+    ## Step 1: Download kernels ##
+    ##############################
+
+    # You can find the PDS4 mission path here: https://naif.jpl.nasa.gov/pub/naif/pds/pds4/
+
+    # Download the subset and its kernels
+    subset_dir_path = download_subset(
+        "orex/orex_spice", image_metadata["date_obs"])
+
+    #########################
+    ## Step 2: Meta kernel ##
+    #########################
+
+    # Get meta kernel file from subset dir
+    
+    # change directory to subset dir
+    os.chdir(subset_dir_path)
+    
+    # find meta kernel (.tm) file in dir
+    for file in os.listdir(os.getcwd()):
+        if file.endswith(".tm"):
+            meta_kernel = file
+            break
+
+    # furnsh meta kernel
+    spiceypy.furnsh(meta_kernel)
+
+
+if __name__ == "__main__":
+    get_results()
