@@ -1,8 +1,8 @@
 from flask import Flask, render_template, request
 from astropy.io import fits
 from modules.main import get_results
-from utilities.validations import allowed_image
-from utilities.image_metadata import get_fits_image_metadata, get_xml_image_metadata
+from modules.utilities.validations import allowed_image
+from modules.utilities.image_metadata import get_fits_image_metadata, get_xml_image_metadata
 
 app = Flask(__name__)
 
@@ -45,8 +45,17 @@ def upload_image():
                     return "Image must be a .FITS or .XML file"
 
                 # pass file information to the backend
-                image_metadata = get_fits_image_metadata(fits.getheader(file)) if file.filename.endswith("fits") else get_xml_image_metadata(file)
+                if file.filename.endswith("fits"):
+                    fits_header = fits.getheader(file)
+                    image_metadata = get_fits_image_metadata(fits_header)
+                else:
+                    # TODO: XML metadata
+                    image_metadata = get_xml_image_metadata(file)
+
+                # get results from backend
                 get_results(image_metadata)
+
+                # TODO: Display results
 
         return request.url
 
